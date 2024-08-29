@@ -2,7 +2,7 @@ import {Streamlit} from "streamlit-component-lib";
 import React, {useEffect, useState} from "react";
 import {Transfer, ConfigProvider, Button} from 'antd';
 import {ReloadOutlined} from '@ant-design/icons';
-import type {TransferDirection, TransferListProps} from 'antd/es/transfer';
+import type {TransferDirection, TransferListProps, TransferProps} from 'antd/es/transfer';
 import {GetColor, RgbaColor, DarkenColor, insertStyle} from "../js/utils.react"
 import {strToNode, numberToStr} from "../js/transfer.react";
 import '../css/transfer.css'
@@ -58,7 +58,7 @@ const AntdTransfer = (props: TransferProp) => {
     const [targetKeys, setTargetKeys] = useState(index);
 
     //callback
-    const onChange = (nextTargetKeys: string[], direction: TransferDirection, moveKeys: string[]) => {
+    const onChange: TransferProps['onChange'] = (nextTargetKeys, direction, moveKeys) => {
         setTargetKeys(nextTargetKeys);
         Streamlit.setComponentValue(nextTargetKeys.map((x) => return_index ? Number(x) : kv[Number(x)]));
     };
@@ -139,7 +139,7 @@ const AntdTransfer = (props: TransferProp) => {
                         colorBgContainer: 'inherit',
                         colorBorder: RgbaColor(textColor),
                         colorPrimaryHover: primaryColor,
-                        activeBorderColor: primaryColor,
+                        // activeBorderColor: primaryColor,
                         controlOutlineWidth: 0,
                         colorTextPlaceholder: RgbaColor(textColor, 0.5),
                     },
